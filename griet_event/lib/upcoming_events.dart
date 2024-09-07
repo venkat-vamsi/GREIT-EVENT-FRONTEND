@@ -230,7 +230,7 @@ class EventModel {
   final EventTypeModel type;
   final ContactModel contact;
   final ClubModel club;
-  final String imageUrl;
+  final String? image;
 
   EventModel({
     required this.eventId,
@@ -243,7 +243,7 @@ class EventModel {
     required this.type,
     required this.contact,
     required this.club,
-    required this.imageUrl,
+    required this.image,
   });
 
   factory EventModel.fromJson(Map<String, dynamic> json) {
@@ -258,7 +258,7 @@ class EventModel {
       type: EventTypeModel.fromJson(json['type']),
       contact: ContactModel.fromJson(json['contact']),
       club: ClubModel.fromJson(json['club']),
-      imageUrl: json['imageUrl'] ?? '',
+      image: json['image'],
     );
   }
 
@@ -375,7 +375,7 @@ class ApiService {
   final String baseUrl = 'http://192.168.29.251:8080';
 
   Future<List<EventModel>> fetchEvents() async {
-    final response = await http.get(Uri.parse('$baseUrl/events/all'));
+    final response = await http.get(Uri.parse('$baseUrl/events/'));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -551,12 +551,19 @@ class _EventsUpcomingState extends State<EventsUpcoming> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(6),
-                                    child: Image.asset(
-                                      'assets/upcoming.jpg',
-                                      height: 150,
-                                      width: double.infinity,
-                                      fit: BoxFit.cover,
-                                    ),
+                                    child: event.image != null
+                                        ? Image.memory(
+                                            base64Decode(event.image!),
+                                            height: 125,
+                                            width: 200,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Image.asset(
+                                            'assets/TECHNICAL.png',
+                                            height: 125,
+                                            width: 200,
+                                            fit: BoxFit.cover,
+                                          ),
                                   ),
                                 ),
                                 const SizedBox(height: 10),

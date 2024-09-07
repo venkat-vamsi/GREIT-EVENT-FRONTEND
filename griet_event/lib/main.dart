@@ -22,19 +22,20 @@ class EventModel {
   final EventTypeModel type;
   final ContactModel contact;
   final ClubModel club;
+  final String? image;
 
-  EventModel({
-    required this.eventId,
-    required this.name,
-    required this.date,
-    required this.startTime,
-    required this.endTime,
-    required this.venue,
-    required this.description,
-    required this.type,
-    required this.contact,
-    required this.club,
-  });
+  EventModel(
+      {required this.eventId,
+      required this.name,
+      required this.date,
+      required this.startTime,
+      required this.endTime,
+      required this.venue,
+      required this.description,
+      required this.type,
+      required this.contact,
+      required this.club,
+      required this.image});
 
   factory EventModel.fromJson(Map<String, dynamic> json) {
     return EventModel(
@@ -48,6 +49,7 @@ class EventModel {
       type: EventTypeModel.fromJson(json['type']),
       contact: ContactModel.fromJson(json['contact']),
       club: ClubModel.fromJson(json['club']),
+      image: json['image'],
     );
   }
 
@@ -157,7 +159,7 @@ class EventService {
   final String baseUrl = 'http://192.168.29.251:8080';
 
   Future<List<EventModel>> fetchEvents() async {
-    final response = await http.get(Uri.parse('$baseUrl/events/all'));
+    final response = await http.get(Uri.parse('$baseUrl/events/'));
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       List jsonResponse = json.decode(response.body);
@@ -462,27 +464,6 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String eventType = event.type.name.toLowerCase();
-    String imagePath = '';
-
-    switch (eventType) {
-      case 'technical':
-        imagePath = 'assets/TECHNICAL.png';
-        break;
-      case 'nontechnical':
-        imagePath = 'assets/NT.png';
-        break;
-      case 'technicalandnontechnical':
-        imagePath = 'assets/T&NT.png';
-        break;
-      case 'cultural':
-        imagePath = 'assets/CULTURAL.png';
-        break;
-      default:
-        imagePath = 'assets/TECHNICAL.png';
-        break;
-    }
-
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -490,7 +471,19 @@ class EventCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => EventDetailPage(
               eventName: event.name,
-              eventImage: Image.asset(imagePath),
+              eventImage: event.image != null
+                  ? Image.memory(
+                      base64Decode(event.image!),
+                      height: 125,
+                      width: 200,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset(
+                      'assets/TECHNICAL.png',
+                      height: 125,
+                      width: 200,
+                      fit: BoxFit.cover,
+                    ),
               eventDescription: event.description,
               eventDate: event.date,
               eventVenue: event.venue.venueName,
@@ -536,12 +529,19 @@ class EventCard extends StatelessWidget {
                       padding: const EdgeInsets.all(6.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
-                        child: Image.asset(
-                          imagePath,
-                          height: 125,
-                          width: 200,
-                          fit: BoxFit.cover,
-                        ),
+                        child: event.image != null
+                            ? Image.memory(
+                                base64Decode(event.image!),
+                                height: 125,
+                                width: 200,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.asset(
+                                'assets/TECHNICAL.png',
+                                height: 125,
+                                width: 200,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
                   ),
