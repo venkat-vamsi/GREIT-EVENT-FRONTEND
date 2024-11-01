@@ -1,15 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:griet_event/bottom_bar.dart';
 import 'package:griet_event/event_display.dart';
 import 'package:griet_event/floating_button.dart';
-import 'package:griet_event/profile.dart';
-import 'package:griet_event/upcoming_events.dart';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:carousel_slider/carousel_slider.dart';
-
-import 'add_event.dart';
-import 'management_page.dart';
 
 class EventModel {
   final int eventId;
@@ -156,7 +151,7 @@ class ClubModel {
 }
 
 class EventService {
-  final String baseUrl = 'http://192.168.29.251:8080';
+  final String baseUrl = 'http://192.168.110.88:8080';
 
   Future<List<EventModel>> fetchEvents() async {
     final response = await http.get(Uri.parse('$baseUrl/events/'));

@@ -432,13 +432,14 @@
 //     );
 //   }
 // }
+import 'dart:convert'; // Import for base64Encode
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:griet_event/main.dart';
-import 'package:intl/intl.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
-import 'dart:convert'; // Import for base64Encode
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class CreateEventPage extends StatefulWidget {
   const CreateEventPage({Key? key}) : super(key: key);
@@ -524,7 +525,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
   VenueType _selectedVenueType = VenueType.hall1;
 
   Future<void> _submitEvent() async {
-    final url = Uri.parse('http://192.168.29.251:8080/events/create');
+    final url = Uri.parse('http://192.168.110.88:8080/events/create');
 
     String? base64Image;
     if (_selectedMediaWidget != null) {
