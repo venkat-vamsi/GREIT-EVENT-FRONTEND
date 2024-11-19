@@ -525,7 +525,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
   VenueType _selectedVenueType = VenueType.hall1;
 
   Future<void> _submitEvent() async {
-    final url = Uri.parse('http://192.168.110.88:8080/events/create');
+    final url = Uri.parse('http://192.168.29.251:8080/events/create');
 
     String? base64Image;
     if (_selectedMediaWidget != null) {

@@ -373,7 +373,7 @@ class ClubModel {
 }
 
 class ApiService {
-  final String baseUrl = 'http://192.168.110.88:8080';
+  final String baseUrl = 'http://192.168.29.251:8080';
 
   Future<List<EventModel>> fetchEvents() async {
     final response = await http.get(Uri.parse('$baseUrl/events/'));

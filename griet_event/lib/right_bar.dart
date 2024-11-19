@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:griet_event/profile.dart';
+import 'package:griet_event/clubs.dart';
 
 class RightSideIcons extends StatelessWidget {
   const RightSideIcons({
@@ -22,7 +22,7 @@ class RightSideIcons extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ProfileSettingScreen()));
+                        builder: (context) => ClubManagement()));
               },
             )
           ],
