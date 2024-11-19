@@ -33,6 +33,13 @@ class GoverningBodyScreen extends StatelessWidget {
               image: 'assets/principal.jpg',
             ),
             _buildMemberSection(
+              title: 'Dean Of Student Affairs',
+              name: 'Dr. Vinay Kumar',
+              description:
+                  'Dean Of Student Affairs & TEDxGRIET coordinator, GRIET, Hyderabad',
+              image: 'assets/dsa.png',
+            ),
+            _buildMemberSection(
               title: 'AAC Faculty Coordinator',
               name: 'Dr. M Kiran Kumar',
               description: 'AAC Faculty Coordinator, GRIET, Hyderabad',
