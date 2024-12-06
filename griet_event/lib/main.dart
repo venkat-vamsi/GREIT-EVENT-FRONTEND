@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:griet_event/ipconfig.dart';
 import 'package:flutter/material.dart';
 import 'package:griet_event/bottom_bar.dart';
 import 'package:griet_event/clubs_button.dart';
@@ -151,7 +151,6 @@ class ClubModel {
 }
 
 class EventService {
-  final String baseUrl = 'http://192.168.29.251:8080';
 
   Future<List<EventModel>> fetchEvents() async {
     final response = await http.get(Uri.parse('$baseUrl/events/'));
